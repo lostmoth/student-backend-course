@@ -1,0 +1,699 @@
+{
+  "info": {
+    "_postman_id": "2d098d46-ed3e-49e9-9dcb-1f8d153f0776",
+    "name": "Lab2 CRUD API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58361984",
+    "_collection_link": "https://go.postman.co/collection/58361984-2d098d46-ed3e-49e9-9dcb-1f8d153f0776?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Items",
+      "item": [
+        {
+          "name": "GET Item by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/items/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "items",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET All items",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Проверка статуса ответа\r\npm.test(\"Статус 200 OK\", function () {\r\n pm.response.to.have.status(200);\r\n});\r\n// Проверка, что ответ - JSON\r\npm.test(\"Ответ в формате JSON\", function () {\r\n pm.response.to.be.json;\r\n});\r\n// Проверка наличия поля count\r\npm.test(\"Есть поле count\", function () {\r\n const jsonData = pm.response.json();\r\n pm.expect(jsonData).to.have.property('count');\r\n});\r\n// Проверка, что items - массив\r\npm.test(\"items - это массив\", function () {\r\n const jsonData = pm.response.json();\r\n pm.expect(jsonData.items).to.be.an('array');\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/items",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "items"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "GET All items",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/items",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "items"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "219"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"db-JFqCL8yQVbDs+gDmh5V/RcMEUpc\""
+                },
+                {
+                  "key": "date",
+                  "value": "Sat, 19 Sep 2026 13:01:37 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"count\": 3,\n  \"items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Обновлённый товар\",\n      \"price\": 150\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Товар 2\",\n      \"price\": 200,\n      \"quantity\": 3\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Новый товар из Postman\",\n      \"price\": 500,\n      \"quantity\": 7\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "POST Create Items",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 201 Created\", function () {\r\n pm.response.to.have.status(201);\r\n});\r\npm.test(\"Ответ содержит ID\", function () {\r\n const jsonData = pm.response.json();\r\n pm.expect(jsonData).to.have.property('id');\r\n pm.expect(jsonData.id).to.be.a('number');\r\n});\r\npm.test(\"Статус 404 Not Found\", function () {\r\n pm.response.to.have.status(404);\r\n});\r\npm.test(\"Ответ содержит error\", function () {\r\n const jsonData = pm.response.json();\r\n pm.expect(jsonData).to.have.property('error');\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Новый товар из Postman\",\r\n    \"price\": 500,\r\n    \"quantity\": 7\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/items",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "items"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "POST Create Items",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Новый товар из Postman\",\r\n    \"price\": 500,\r\n    \"quantity\": 7\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/items",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "items"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "77"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"4d-pUg5TmtGfGYP//bVG6M9s4r6tKU\""
+                },
+                {
+                  "key": "date",
+                  "value": "Sat, 19 Sep 2026 13:03:02 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 5,\n  \"name\": \"Новый товар из Postman\",\n  \"price\": 500,\n  \"quantity\": 7\n}"
+            }
+          ]
+        },
+        {
+          "name": "PUT Update Item",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Обновлённый товар\",\r\n    \"price\" : 150,\r\n    \"quantity\" : 20\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/items/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "items",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Delete Item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/items/3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "items",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Errors",
+      "item": [
+        {
+          "name": "GET Nonexistent Item",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/items/999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "items",
+                "999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Invalid data",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/items",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "items"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "item": [
+        {
+          "name": "all items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "item by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "new item",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\" : \"DevOps\",\r\n    \"duration\" : 188,\r\n    \"level\" : \"intermediate\",\r\n    \"price\": 200000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/courses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update item",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\" : \"машинное обучение\",\r\n    \"duration\": 450,\r\n    \"level\": \"professional\",\r\n    \"price\": 300000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/courses/3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/courses/3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "post w error",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"blockchain-разработка\",\r\n    \"duration\" : 23,\r\n    \"level\": \"intermediate\",\r\n    \"price\": \"230000\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/courses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "put w error",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"absahs\",\r\n    \"duration\": 123,\r\n    \"level\": \"advanced\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/courses/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get w search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses?search=backend-разработка",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "backend-разработка"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get w sort",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses?sort=price&order=asc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "price"
+                },
+                {
+                  "key": "order",
+                  "value": "asc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get w page",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses?page=1&limit=2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update item",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"level\": \"professional\",\r\n    \"duration\": 554,\r\n    \"price\": 220000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/courses/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "post bulk",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"title\": \"C++ разработка\",\r\n        \"duration\": 777,\r\n        \"level\": \"professional\",\r\n        \"price\": 340000\r\n    },\r\n    {\r\n        \"title\": \"Java-разработка\",\r\n        \"duration\": 650,\r\n        \"level\": \"intermediate\",\r\n        \"price\": 310000\r\n    }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/courses/bulk",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "bulk"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete all",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses/stats",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "stats"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "related",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses/1/related",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "1",
+                "related"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get w error",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses/999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "500",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/test-500",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "test-500"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
